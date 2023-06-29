@@ -4,39 +4,39 @@ import Paginacion from "../componentes/paginacion/paginacion.componente";
 import { useAppDispatch, useAppSelector } from "../ReduxComponent/reduxComponent";
 import { resetFiltro } from "../Slices/personajesReducer";
  
+
 /**
- * Esta es la pagina principal. Aquí se debera ver el panel de filtros junto con la grilla de personajes.
- * 
- * Uso: 
- * ``` <PaginaInicio /> ```
- * 
- * @returns la pagina de inicio
+ * Componente de la página de inicio.
+ * Muestra el catálogo de personajes con opciones de filtrado y paginación.
  */
 const PaginaInicio = () => {
+  const { personajes } = useAppSelector((state) => state.personajes);
+  const dispatch = useAppDispatch();
 
-    const { personajes} = useAppSelector(state => state.personajes)
-    const dispatch = useAppDispatch()
+  /**
+   * Maneja el evento de restablecimiento del filtro.
+   * Envía una acción para limpiar el filtro de personajes.
+   */
+  const handleResetFiltro = () => {
+    dispatch(resetFiltro());
+  };
 
-    const handleResetFiltro = () => {
-        dispatch(resetFiltro());
-      };
-    
-      return (
-        <div className="container">
-          <div className="actions">
-            <h3>Catálogo de Personajes</h3>
-            <button onClick={handleResetFiltro} className="danger">
-              Limpiar filtros
-            </button>
-          </div>
-          <Filtros />
-          <Paginacion />
-          <div className="grilla-contenedor">
-            <GrillaPersonajes personajes={personajes} />
-          </div>
-          <Paginacion />
-        </div>
-      );
-}
+  return (
+    <div className="container">
+      <div className="actions">
+        <h3>Catálogo de Personajes</h3>
+        <button onClick={handleResetFiltro} className="danger">
+          Limpiar filtros
+        </button>
+      </div>
+      <Filtros />
+      <Paginacion />
+      <div className="grilla-contenedor">
+        <GrillaPersonajes personajes={personajes} />
+      </div>
+      <Paginacion />
+    </div>
+  );
+};
 
-export default PaginaInicio
+export default PaginaInicio;
